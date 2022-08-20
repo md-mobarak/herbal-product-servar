@@ -1,15 +1,17 @@
 const express = require('express')
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const app = express()
 const cors = require('cors');
-const port = 5000
+const port = process.env.PORT || 4000;
+require('dotenv').config()
 
 // bdHerbal
 // oBE3tGLww5psnwsI
 app.use(express.json())
 app.use(cors())
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
-const uri = "mongodb+srv://bdHerbal:oBE3tGLww5psnwsI@cluster0.jdq0ank.mongodb.net/?retryWrites=true&w=majority";
+
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.jdq0ank.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 
@@ -39,12 +41,6 @@ async function run() {
         })
 
 
-        // app.delete('/order/:id', async (req, res) => {
-        //     const { id } = req.params;
-        //     const query = { _id: ObjectId(id) };
-        //     const result = await userCollection.deleteOne(query)
-        //     res.send(result)
-        // })
     }
 
     finally {
